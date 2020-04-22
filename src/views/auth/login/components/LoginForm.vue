@@ -5,14 +5,19 @@
       <div class="form-control">
         <input
           ref="username"
+          id="username"
           type="text"
-          id="username" v-model="username" readonly @focus.once="handleAutoComplete">
-        <label for="username" :class="username ? 'end' : ''">用户名</label>
+          :value="loginForm.username"
+          readonly @focus.once="handleAutoComplete" @input="updateUsername">
+        <label for="username" :class="loginForm.username ? 'end' : ''">用户名</label>
         <p class="tip">😮 输入不能为空哦</p>
       </div>
       <div class="form-control">
-        <input type="password" id="password" v-model="password" @focus.once="handleAutoComplete">
-        <label for="password" :class="password ? 'end' : ''">密码</label>
+        <input
+          id="password"
+          type="password"
+          :value="loginForm.password" @focus.once="handleAutoComplete" @input="updatePassword">
+        <label for="password" :class="loginForm.password ? 'end' : ''">密码</label>
         <p class="tip">😮 输入不能为空哦</p>
       </div>
     </div>
@@ -20,15 +25,36 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'LoginForm',
-  data() {
-    return {
-      username: '',
-      password: '',
-    };
+  computed: {
+    ...mapGetters({
+      loginForm: 'authStore/loginFormData',
+    }),
   },
   methods: {
+    ...mapActions({
+      setUsername: 'authStore/invokeSetUsernameAsLoginForm',
+      setPassword: 'authStore/invokeSetPasswordAsLoginForm',
+    }),
+    /**
+     * 更新 store 中 loginForm 的 username
+     */
+    updateUsername(e) {
+      this.setUsername({
+        username: e.target.value,
+      });
+    },
+    /**
+     * 更新 store 中 loginForm 的 password
+     */
+    updatePassword(e) {
+      this.setPassword({
+        password: e.target.value,
+      });
+    },
     /**
      * 防止谷歌浏览器自动填充表单，产生意外样式
      */

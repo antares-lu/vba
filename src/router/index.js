@@ -1,20 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { LoadingBar } from 'view-design';
+import authRouter from './modules/authRouter';
 
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */'../views/auth/login/index.vue'),
-  },
-  {
-    path: '/reset',
-    name: 'Reset',
-    component: () => import(/* webpackChunkName: "login" */'../views/auth/reset/index.vue'),
-  },
+  ...authRouter,
 ];
 
 const router = new VueRouter({

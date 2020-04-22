@@ -1,6 +1,6 @@
 <template>
   <div id="vba">
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
