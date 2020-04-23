@@ -1,49 +1,78 @@
 <template>
-  <i-menu class="sider-menu" width="236" accordion>
-    <i-menu-item name="3-1">
-      <i-icon type="ios-information-circle-outline" />
-      <span>哭着敲代码</span>
-    </i-menu-item>
-    <i-submenu name="2">
-      <template slot="title">
-        <i-icon type="ios-people" />
-        用户管理
-      </template>
-      <i-menu-item name="2-1">新增用户</i-menu-item>
-      <i-menu-item name="2-2">活跃用户</i-menu-item>
-    </i-submenu>
-    <i-submenu name="3">
-      <template slot="title">
-          <i-icon type="ios-stats" />
-          统计分析
-      </template>
-      <i-menu-group title="使用">
-        <i-menu-item name="3-1">新增和启动</i-menu-item>
-        <i-menu-item name="3-2">活跃分析</i-menu-item>
-        <i-menu-item name="3-3">时段分析</i-menu-item>
-      </i-menu-group>
-      <i-menu-group title="留存">
-        <i-menu-item name="3-4">用户留存</i-menu-item>
-        <i-menu-item name="3-5">流失用户</i-menu-item>
-      </i-menu-group>
-    </i-submenu>
+  <i-menu class="sider-menu" accordion>
+    <template v-for="menu in menuList">
+      <i-tooltip :key="menu.name" :content="menu.text" placement="right" :disabled="!fold">
+        <i-menu-item :name="menu.name" class="sider-menu-item">
+            <i-icon :type="menu.icon" />
+          <span class="text">{{ menu.text }}</span>
+        </i-menu-item>
+      </i-tooltip>
+    </template>
   </i-menu>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
+const BASE_PATH = '/backoffice';
+
 export default {
   name: 'SiderMenu',
+  data() {
+    return {
+      menuList: [
+        {
+          name: 'dashboard',
+          text: '哭着敲代码',
+          icon: 'ios-information-circle-outline',
+          to: `${BASE_PATH}/dashboard`,
+        },
+        {
+          name: 'logManage',
+          text: '日志管理',
+          icon: 'md-clipboard',
+          to: `${BASE_PATH}/log`,
+        },
+      ],
+    };
+  },
+  computed: {
+    ...mapGetters({
+      fold: 'siderStore/fold',
+    }),
+  },
 };
 </script>
 
 <style lang="less" scoped>
-.ivu-menu-vertical:after {
-  width: 0;
-}
-
 .sider-menu {
-  i {
-    color: @font-hover-color;
+  width: 100% !important;
+
+  &-item {
+    width: 100%;
+    height: 48px !important;
+    transition: all .2s ease-in-out;
+
+    > i {
+      margin-right: 12px;
+      vertical-align: middle;
+      font-size: 18px;
+      color: @font-hover-color;
+      transition: font-size .2s ease-in-out;
+    }
+
+    > .text {
+      display: inline-block;
+      width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: bottom;
+      font-size: 13px;
+      color: @font-primary-color;
+      transition: width .2s ease-in-out .12s;
+      opacity: 1;
+    }
   }
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
   <i-layout id="backoffice-layout">
-    <i-sider id="sider" :width="236" collapsible hide-trigger>
+    <i-sider
+      id="sider"
+      :class="fold ? 'foled' : ''" :width="236" :value="fold" collapsible hide-trigger>
       <!-- 如果拆分成组件引入会有问题 -->
       <div id="logo">
         <img src="../assets/svg/vuejs.svg" alt="vba">
@@ -11,7 +13,9 @@
       </div>
     </i-sider>
     <i-layout>
-      <i-header></i-header>
+      <i-header>
+        <button @click="test">切换</button>
+      </i-header>
       <i-content>
         <router-view></router-view>
       </i-content>
@@ -21,6 +25,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import SiderMenu from '../components/sider/Menu.vue';
 
 export default {
@@ -32,6 +37,19 @@ export default {
     return {
       psInstance: null,
     };
+  },
+  computed: {
+    ...mapGetters({
+      fold: 'siderStore/fold',
+    }),
+  },
+  methods: {
+    ...mapActions({
+      setSiderFoldState: 'siderStore/invokeSetFoldState',
+    }),
+    test() {
+      this.setSiderFoldState({ fold: !this.fold });
+    },
   },
 };
 </script>
@@ -49,10 +67,14 @@ export default {
     box-shadow: 0 2px 6px 0 rgba(190, 204, 216, .4);
   }
 
-  /deep/ .ivu-layout-sider{
+  /deep/ .ivu-layout-sider {
     background-color: @font-hover-color;
     background-color: transparent;
     color: #fff;
+
+    .ivu-menu-vertical:after {
+      width: 0;
+    }
 
     /deep/ #sider {
       width: 100%;
@@ -78,6 +100,7 @@ export default {
         > img {
           height: 80%;
           opacity: .86;
+          transition: all .2s ease-in-out;
         }
 
         > h1 {
@@ -93,6 +116,36 @@ export default {
         background-color: #fff;
         // overflow-x: hidden;
         // overflow-y: auto;
+      }
+    }
+  }
+
+  /**
+   * 侧栏折叠时样式
+  */
+  > #sider.foled {
+    /deep/ .ivu-layout-sider-children {
+      #logo {
+        >img {
+          height: 60%;
+        }
+
+        > h1 {
+          display: none;
+        }
+      }
+
+      .sider-menu {
+        &-item {
+          > i {
+            font-size: 20px;
+          }
+
+          > .text {
+            width: 0;
+            font-size: 0;
+          }
+        }
       }
     }
   }
