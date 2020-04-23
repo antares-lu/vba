@@ -1,5 +1,6 @@
 <template>
   <i-layout id="backoffice-layout">
+    <!-- 侧栏 -->
     <i-sider
       id="sider"
       :class="fold ? 'foled' : ''" :width="236" :value="fold" collapsible hide-trigger>
@@ -12,14 +13,16 @@
         <sider-menu />
       </div>
     </i-sider>
+
     <i-layout>
+      <!-- 头部 -->
       <i-header>
-        <button @click="test">切换</button>
+        <c-head />
       </i-header>
+      <!-- 内容区域 -->
       <i-content>
         <router-view></router-view>
       </i-content>
-      <i-footer></i-footer>
     </i-layout>
   </i-layout>
 </template>
@@ -27,11 +30,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import SiderMenu from '../components/sider/Menu.vue';
+import CHead from '../components/head/Index.vue';
 
 export default {
   name: 'BackOffice',
   components: {
     SiderMenu,
+    CHead,
   },
   data() {
     return {
@@ -62,7 +67,7 @@ export default {
   /deep/ .ivu-layout-header {
     height: 56px;
     background-color: #fff;
-    padding: 0 20px;
+    padding: 0 8px;
     line-height: normal;
     box-shadow: 0 2px 6px 0 rgba(190, 204, 216, .4);
   }

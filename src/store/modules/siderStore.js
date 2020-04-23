@@ -3,7 +3,7 @@ const siderStore = {
 
   state: {
     // 侧栏是否折叠
-    fold: true,
+    fold: false,
   },
 
   getters: {

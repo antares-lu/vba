@@ -1,5 +1,5 @@
 <template>
-  <i-menu class="sider-menu" accordion>
+  <i-menu class="sider-menu" accordion active-name="dashboard">
     <template v-for="menu in menuList">
       <i-tooltip :key="menu.name" :content="menu.text" placement="right" :disabled="!fold">
         <i-menu-item :name="menu.name" class="sider-menu-item">
