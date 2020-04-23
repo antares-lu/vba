@@ -1,17 +1,23 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { LoadingBar } from 'view-design';
+import indexRouter from './modules/indexRouter';
 import authRouter from './modules/authRouter';
+import backofficeRouter from './modules/backofficeRouter';
 
 Vue.use(VueRouter);
 
 const routes = [
+  ...indexRouter,
   ...authRouter,
+  ...backofficeRouter,
 ];
 
 const router = new VueRouter({
   mode: 'history',
+
   base: process.env.BASE_URL,
+
   routes,
 });
 

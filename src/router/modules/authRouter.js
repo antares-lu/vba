@@ -1,13 +1,24 @@
+import { Notice } from 'view-design';
+
 const authRouter = [
   {
     path: '/login',
-    name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */'../../views/auth/login/index.vue'),
+    name: 'login',
+    component: () => import(/* webpackChunkName: "login" */'../../views/auth/login/Index.vue'),
+    beforeEnter: (to, from, next) => {
+      Notice.info({
+        title: '你好！',
+        desc: '😮 感谢使用 vba。',
+        duration: 6,
+      });
+
+      next();
+    },
   },
   {
     path: '/reset',
-    name: 'Reset',
-    component: () => import(/* webpackChunkName: "login" */'../../views/auth/reset/index.vue'),
+    name: 'reset',
+    component: () => import(/* webpackChunkName: "login" */'../../views/auth/reset/Index.vue'),
   },
 ];
 

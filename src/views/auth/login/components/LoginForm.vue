@@ -2,21 +2,27 @@
   <div id="login-form">
     <h2 class="title">welcome to {{ $t('global.projectName') }}</h2>
     <div class="form-container">
-      <div class="form-control">
+      <div class="form-control" :class="usernameWarn ? 'warn' : ''">
         <input
           ref="username"
           id="username"
           type="text"
           :value="loginForm.username"
-          readonly @focus.once="handleAutoComplete" @input="updateUsername">
+          readonly
+          @focus.once="handleUsernameInputFocus"
+          @input="updateUsername"
+          >
         <label for="username" :class="loginForm.username ? 'end' : ''">用户名</label>
         <p class="tip">😮 输入不能为空哦</p>
       </div>
-      <div class="form-control">
+      <div class="form-control" :class="passwordWarn ? 'warn' : ''">
         <input
           id="password"
           type="password"
-          :value="loginForm.password" @focus.once="handleAutoComplete" @input="updatePassword">
+          :value="loginForm.password"
+          @focus.once="handlePasswordInputFocus"
+          @input="updatePassword"
+          >
         <label for="password" :class="loginForm.password ? 'end' : ''">密码</label>
         <p class="tip">😮 输入不能为空哦</p>
       </div>
@@ -29,10 +35,24 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'LoginForm',
+  data() {
+    return {
+      loginFormInputFlag: {
+        username: false,
+        password: false,
+      },
+    };
+  },
   computed: {
     ...mapGetters({
       loginForm: 'authStore/loginFormData',
     }),
+    usernameWarn() {
+      return (!this.loginForm.username && this.loginFormInputFlag.username);
+    },
+    passwordWarn() {
+      return (!this.loginForm.password && this.loginFormInputFlag.password);
+    },
   },
   methods: {
     ...mapActions({
@@ -54,6 +74,16 @@ export default {
       this.setPassword({
         password: e.target.value,
       });
+    },
+    handleUsernameInputFocus() {
+      this.handleAutoComplete();
+
+      this.loginFormInputFlag.username = true;
+    },
+    handlePasswordInputFocus() {
+      this.handleAutoComplete();
+
+      this.loginFormInputFlag.password = true;
     },
     /**
      * 防止谷歌浏览器自动填充表单，产生意外样式
@@ -102,7 +132,7 @@ export default {
         font-size: 12px;
 
         &:focus {
-          border: 1.18px solid @font-hover-color;
+          border: 1.18px solid @font-hover-color !important;
         }
 
         &:focus~label {
@@ -115,6 +145,10 @@ export default {
           left: 18px;
           transform: translateY(-50%);
         }
+      }
+
+      &.warn > input {
+        border: 1.18px solid @font-warn-color;
       }
 
       > label {
@@ -137,11 +171,16 @@ export default {
       }
 
       > .tip {
+        display: none;
         position: absolute;
         right: 0;
         padding-top: 3px;
         font-size: 10px;
         color: @font-primary-color;
+      }
+
+      &.warn > .tip {
+        display: block;
       }
     }
   }

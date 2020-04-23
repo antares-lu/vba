@@ -6,13 +6,14 @@
     <div class="login-form-wrap">
       <login-form />
     </div>
-    <div class="login-btn" @click="submitLogin">
+    <div class="login-btn" @click="handleLoginBtnClick">
       <arrow-right-lottie />
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import LoginForm from './LoginForm.vue';
 import ArrowRightLottie from './ArrowRightLottie.vue';
 
@@ -22,8 +23,21 @@ export default {
     LoginForm,
     ArrowRightLottie,
   },
+  computed: {
+    ...mapGetters({
+      loginForm: 'authStore/loginFormData',
+    }),
+    loginEnable() {
+      return this.loginForm.username && this.loginForm.password;
+    },
+  },
   methods: {
-    submitLogin() {
+    handleLoginBtnClick() {
+      if (this.loginEnable) {
+        // ...请求登录\
+        this.$router.push('/');
+      }
+      // ...do something
     },
   },
 };
@@ -40,8 +54,8 @@ export default {
   > .logo {
     position: absolute;
     transform: translateX(-14%) translateY(-14%);
-    width: 240px;
-    height: 240px;
+    width: 220px;
+    height: 220px;
     border-radius: 6px;
     background-color: #4a63fe;
     box-shadow: 0 1px 40px -12px rgba(0, 0, 0, .8);
@@ -60,8 +74,7 @@ export default {
     position: absolute;
     right: 40px;
     top: 40px;
-    width: calc(100% - (240px + (240px * .14)));
-    height: 60%;
+    width: calc(100% - (220px + (220px * .14)));
   }
 
   > .login-btn {
