@@ -72,6 +72,10 @@ export default {
     box-shadow: 0 2px 6px 0 rgba(190, 204, 216, .4);
   }
 
+  /deep/ .ivu-layout-content {
+    padding: 16px;
+  }
+
   /deep/ .ivu-layout-sider {
     background-color: @font-hover-color;
     background-color: transparent;

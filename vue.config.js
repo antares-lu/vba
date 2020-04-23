@@ -40,6 +40,7 @@ module.exports = {
       patterns: [
         path.resolve(__dirname, 'src/assets/less/variable.less'),
         path.resolve(__dirname, 'src/assets/less/reset.less'),
+        path.resolve(__dirname, 'src/assets/less/common.less'),
       ],
     },
   },

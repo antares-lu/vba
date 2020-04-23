@@ -1,6 +1,7 @@
 <template>
-  <div id="dashboard-page">
+  <div id="dashboard-page" class="content-page" v-scrollbar>
     <h2>Dashboard Page</h2>
+    <div style="height: 1200px"></div>
   </div>
 </template>
 
@@ -10,5 +11,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
+#dashboard-page {
+  position: relative;
+  background-color: #fff;
+  border-radius: 4px;
+}
 </style>
