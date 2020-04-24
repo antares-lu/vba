@@ -33,7 +33,7 @@ export default {
   height: 100%;
 
   > img {
-    height: 40%;
+    width: 22px;
     cursor: pointer;
     transition: transform .2s ease-in-out;
 
