@@ -21,7 +21,8 @@ export default {
 
 <style lang="less" scoped>
 .dashboard-lottie {
-  width: 100%;
+  width: 730px;
+  height: 580px;
   transform: translateY(10px);
 }
 </style>
