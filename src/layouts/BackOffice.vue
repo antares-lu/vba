@@ -146,13 +146,26 @@ export default {
 
       .sider-menu {
         &-item {
-          > i {
-            font-size: 20px;
-          }
-
           > .text {
             width: 0;
             font-size: 0;
+          }
+        }
+
+        &-sub {
+          /deep/ .ivu-menu-submenu-title {
+            > .text {
+              width: 0;
+              font-size: 0;
+            }
+
+            > .ivu-icon:last-of-type {
+              display: none;
+            }
+          }
+
+          /deep/ .ivu-menu {
+            display: none;
           }
         }
       }
