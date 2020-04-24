@@ -35,29 +35,24 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'LoginForm',
-  data() {
-    return {
-      loginFormInputFlag: {
-        username: false,
-        password: false,
-      },
-    };
-  },
   computed: {
     ...mapGetters({
       loginForm: 'authStore/loginFormData',
+      loginFormInputFocused: 'authStore/loginFormInputFocusedFlag',
     }),
     usernameWarn() {
-      return (!this.loginForm.username && this.loginFormInputFlag.username);
+      return (!this.loginForm.username && this.loginFormInputFocused.username);
     },
     passwordWarn() {
-      return (!this.loginForm.password && this.loginFormInputFlag.password);
+      return (!this.loginForm.password && this.loginFormInputFocused.password);
     },
   },
   methods: {
     ...mapActions({
       setUsername: 'authStore/invokeSetUsernameAsLoginForm',
       setPassword: 'authStore/invokeSetPasswordAsLoginForm',
+      setUsernameInputFocused: 'authStore/invokeSetUsernameInputFocusedAsLoginForm',
+      setPasswordInputFocused: 'authStore/invokeSetPasswordInputFocusedAsLoginForm',
     }),
     /**
      * 更新 store 中 loginForm 的 username
@@ -78,12 +73,12 @@ export default {
     handleUsernameInputFocus() {
       this.handleAutoComplete();
 
-      this.loginFormInputFlag.username = true;
+      this.setUsernameInputFocused({ username: true });
     },
     handlePasswordInputFocus() {
       this.handleAutoComplete();
 
-      this.loginFormInputFlag.password = true;
+      this.setPasswordInputFocused({ password: true });
     },
     /**
      * 防止谷歌浏览器自动填充表单，产生意外样式

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import LoginForm from './LoginForm.vue';
 import ArrowRightLottie from './ArrowRightLottie.vue';
 
@@ -32,10 +32,22 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      setUsernameInputFocused: 'authStore/invokeSetUsernameInputFocusedAsLoginForm',
+      setPasswordInputFocused: 'authStore/invokeSetPasswordInputFocusedAsLoginForm',
+    }),
     handleLoginBtnClick() {
       if (this.loginEnable) {
         // ...请求登录\
         this.$router.push('/');
+      } else {
+        if (this.loginForm.username === '') {
+          this.setUsernameInputFocused({ username: true });
+        }
+
+        if (this.loginForm.password === '') {
+          this.setPasswordInputFocused({ password: true });
+        }
       }
       // ...do something
     },

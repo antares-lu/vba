@@ -9,7 +9,7 @@
         <img src="../assets/svg/vuejs.svg" alt="vba">
         <h1>vba</h1>
       </div>
-      <div ref="sider-content" class="sider-content">
+      <div class="sider-content">
         <sider-menu />
       </div>
     </i-sider>
