@@ -10,16 +10,21 @@
         </i-tooltip>
       </template>
       <template v-else>
-        <i-submenu :key="menu.name" :name="menu.name" class="sider-menu-sub">
-          <template slot="title">
-            <i-icon :type="menu.icon" />
-            <span class="text">{{ menu.text }}</span>
-          </template>
-          <i-menu-item
-            v-for="subMenu in menu.chirden"
-            :key="subMenu.name"
-            :name="subMenu.name">{{ subMenu.text }}</i-menu-item>
-        </i-submenu>
+        <i-poptip :key="menu.name" trigger="hover" :disabled="!fold" placement="right-start">
+          <i-submenu :name="menu.name" class="sider-menu-sub">
+            <template slot="title">
+                <i-icon :type="menu.icon" />
+                <span class="text">{{ menu.text }}</span>
+            </template>
+            <i-menu-item
+              v-for="subMenu in menu.chirden"
+              :key="subMenu.name"
+              :name="subMenu.name">{{ subMenu.text }}</i-menu-item>
+          </i-submenu>
+            <ul class="sider-menu-sub-popup" slot="content">
+              <li v-for="subMenu in menu.chirden" :key="subMenu.name">{{ subMenu.text }}</li>
+            </ul>
+        </i-poptip>
       </template>
     </template>
   </i-menu>
@@ -142,45 +147,85 @@ export default {
     }
   }
 
-  &-sub {
-    /deep/ .ivu-menu-submenu-title {
+  /deep/ .ivu-poptip {
+    width: 100%;
+
+    > .ivu-poptip-rel {
       width: 100%;
-      height: 48.8px !important;
-      transition: all .2s ease-in-out;
+    }
 
-      &:hover {
-        background-color: rgba(0, 0, 0, .04);
-      }
+    > .ivu-poptip-popper {
+      > .ivu-poptip-content {
+        > .ivu-poptip-arrow {
+          display: none;
+        }
 
-      > i {
-        margin-right: 12px;
-        vertical-align: middle;
-        font-size: 18px;
-        color: @font-hover-color;
-      }
+        > .ivu-poptip-inner {
+          box-shadow: none;
+          border-radius: 2px;
+          background-color: @font-hover-color;
+          overflow: hidden;
 
-      > .text {
-        display: inline-block;
-        width: 140px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        vertical-align: bottom;
-        font-size: 13px;
-        color: @font-primary-color;
-        transition: width .2s ease-in-out .12s;
-        opacity: 1;
+          > .ivu-poptip-body {
+            padding: 4px 0;
+          }
+        }
       }
     }
 
-    /deep/ .ivu-menu {
-      > li {
-        height: 48px !important;
-        font-size: 13px;
-        color: @font-primary-color;
+    .sider-menu-sub {
+      /deep/ .ivu-menu-submenu-title {
+        width: 100%;
+        height: 48.8px !important;
+        transition: all .2s ease-in-out;
+
+        > i {
+          margin-right: 12px;
+          vertical-align: middle;
+          font-size: 18px;
+          color: @font-hover-color;
+        }
+
+        > .text {
+          display: inline-block;
+          width: 140px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          vertical-align: bottom;
+          font-size: 13px;
+          color: @font-primary-color;
+          transition: width .2s ease-in-out .12s;
+          opacity: 1;
+        }
 
         &:hover {
           background-color: rgba(0, 0, 0, .04);
+        }
+      }
+
+      /deep/ .ivu-menu {
+        > li {
+          height: 48px !important;
+          font-size: 12px;
+          color: @font-primary-color;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, .04);
+          }
+        }
+      }
+
+      &-popup {
+        li {
+          padding: 8px 12px;
+          font-size: 12px;
+          color: #fff;
+          cursor: pointer;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, .1);
+          }
         }
       }
     }
