@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import authStore from './modules/authStore';
+import langStore from './modules/langStore';
 import siderStore from './modules/siderStore';
 
 Vue.use(Vuex);
@@ -11,6 +12,7 @@ export default new Vuex.Store({
 
   modules: {
     authStore,
+    langStore,
     siderStore,
   },
 });
