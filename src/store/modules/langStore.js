@@ -2,26 +2,26 @@ const langStore = {
   namespaced: true,
 
   state: {
-    local: 'zh',
+    language: 'zh',
   },
 
   getters: {
     // 获取当前语言
-    local({ local }) {
-      return local;
+    language({ language }) {
+      return language;
     },
   },
 
   mutations: {
     // 设置语言
-    setLocal(state, { local }) {
-      state.local = local;
+    setLanguage(state, { language }) {
+      state.language = language;
     },
   },
 
   actions: {
-    invokeSetLocal({ commit }, payload) {
-      commit('setLocal', payload);
+    invokeSetLanguage({ commit }, payload) {
+      commit('setLanguage', payload);
     },
   },
 };

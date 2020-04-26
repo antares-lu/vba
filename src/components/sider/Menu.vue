@@ -163,7 +163,7 @@ export default {
         > .ivu-poptip-inner {
           box-shadow: none;
           border-radius: 2px;
-          background-color: @font-hover-color;
+          background-color: @primary-color;
           overflow: hidden;
 
           > .ivu-poptip-body {

@@ -1,6 +1,7 @@
 <template>
   <div id="dashboard-page" class="content-page" v-scrollbar>
     <h2>Welcome To Vba</h2>
+    <p>{{ $t('test') }}</p>
   </div>
 </template>
 

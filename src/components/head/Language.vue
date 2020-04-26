@@ -2,12 +2,15 @@
   <div class="language">
     <i-dropdown trigger="click" @on-click="changeLanguage">
       <p>
-        <a href="javascript:void(0)">中文</a>
+        <a href="javascript:void(0)">{{ $t('app.language') }}</a>
         <img src="../../assets/svg/switch.svg" />
       </p>
       <i-dropdown-menu slot="list">
-        <i-dropdown-item name="zh" selected>中文</i-dropdown-item>
-        <i-dropdown-item name="en">English</i-dropdown-item>
+        <i-dropdown-item
+          v-for="lang in languageList"
+          :key="lang"
+          :name="lang"
+          :selected="lang === currentLang">{{ $t(`language.${lang}`) }}</i-dropdown-item>
       </i-dropdown-menu>
     </i-dropdown>
   </div>
@@ -16,9 +19,20 @@
 <script>
 export default {
   name: 'Language',
+  data() {
+    return {
+      languageList: ['zh', 'en'],
+    };
+  },
+  computed: {
+    currentLang() {
+      return this.$i18n.locale;
+    },
+  },
   methods: {
     changeLanguage(name) {
-      console.log(name);
+      localStorage.setItem('language', name);
+      this.$i18n.locale = name;
     },
   },
 };
