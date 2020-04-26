@@ -77,7 +77,6 @@ export default {
   }
 
   /deep/ .ivu-layout-sider {
-    background-color: @font-hover-color;
     background-color: transparent;
     color: #fff;
 
@@ -104,7 +103,7 @@ export default {
         align-items: center;
         width: 100%;
         height: 56px;
-        background-color: @font-hover-color;
+        background-color: @primary-color;
 
         > img {
           height: 80%;
@@ -123,8 +122,6 @@ export default {
         flex: 1;
         position: relative;
         background-color: #fff;
-        // overflow-x: hidden;
-        // overflow-y: auto;
       }
     }
   }

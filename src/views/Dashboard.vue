@@ -1,19 +1,6 @@
 <template>
   <div id="dashboard-page" class="content-page" v-scrollbar>
-    <h2>Dashboard Page</h2>
-    <i-dropdown placement="right">
-        <a href="javascript:void(0)">
-            hover 触发
-            <Icon type="ios-arrow-down"></Icon>
-        </a>
-        <i-dropdown-menu slot="list">
-            <i-dropdown-item>驴打滚</i-dropdown-item>
-            <i-dropdown-item>炸酱面</i-dropdown-item>
-            <i-dropdown-item>豆汁儿</i-dropdown-item>
-            <i-dropdown-item>冰糖葫芦</i-dropdown-item>
-            <i-dropdown-item>北京烤鸭</i-dropdown-item>
-        </i-dropdown-menu>
-    </i-dropdown>
+    <h2>Welcome To Vba</h2>
   </div>
 </template>
 
@@ -28,5 +15,14 @@ export default {
   position: relative;
   background-color: #fff;
   border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > h2 {
+    font-weight: lighter;
+    font-size: 46px;
+    color: @font-hover-color;
+  }
 }
 </style>

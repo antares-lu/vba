@@ -69,7 +69,7 @@ export default {
     width: 220px;
     height: 220px;
     border-radius: 6px;
-    background-color: #4a63fe;
+    background-color: @primary-color;
     box-shadow: 0 1px 40px -12px rgba(0, 0, 0, .8);
 
     > img {
@@ -97,7 +97,7 @@ export default {
     width: 160px;
     height: 60px;
     border-radius: 6px;
-    background-color: #4a63fe;
+    background-color: @primary-color;
     cursor: pointer;
   }
 }
